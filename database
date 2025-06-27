@@ -1,0 +1,11 @@
+database=
+CREATE DATABASE clinic;
+USE clinic;
+CREATE TABLE prescriptions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  patient_name VARCHAR(100),
+  doctor_name VARCHAR(100),
+  medicines TEXT,
+  notes TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
