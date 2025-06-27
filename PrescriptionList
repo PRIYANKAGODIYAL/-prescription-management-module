@@ -1,0 +1,87 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+function PrescriptionList() {
+  const [prescriptions, setPrescriptions] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/prescriptions')
+      .then(res => setPrescriptions(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
+  const styles = {
+    container: {
+      maxWidth: '900px',
+      margin: '50px auto',
+      padding: '30px',
+      backgroundColor: '#fff',
+      borderRadius: '12px',
+      boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
+      fontFamily: 'Segoe UI, Roboto, sans-serif',
+    },
+    heading: {
+      color: 'navy',
+      marginBottom: '25px',
+      textAlign: 'center',
+    },
+    table: {
+      width: '100%',
+      borderCollapse: 'collapse',
+    },
+    th: {
+      backgroundColor: 'navy',
+      color: 'white',
+      padding: '12px',
+      textAlign: 'left',
+    },
+    td: {
+      padding: '12px',
+      borderBottom: '1px solid #ddd',
+    },
+    trHover: {
+      backgroundColor: '#f9f9f9',
+    },
+    link: {
+      color: 'crimson',
+      textDecoration: 'none',
+      fontWeight: 'bold',
+    },
+    linkHover: {
+      textDecoration: 'underline',
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2 style={styles.heading}>All Prescriptions</h2>
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th style={styles.th}>ID</th>
+            <th style={styles.th}>Patient</th>
+            <th style={styles.th}>Doctor</th>
+            <th style={styles.th}>Date</th>
+            <th style={styles.th}>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {prescriptions.map(p => (
+            <tr key={p.id} style={styles.trHover}>
+              <td style={styles.td}>{p.id}</td>
+              <td style={styles.td}>{p.patient_name}</td>
+              <td style={styles.td}>{p.doctor_name}</td>
+              <td style={styles.td}>{new Date(p.created_at).toLocaleString()}</td>
+              <td style={styles.td}>
+                <Link to={`/prescription/${p.id}`} style={styles.link}>View</Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default PrescriptionList;
