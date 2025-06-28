@@ -10,3 +10,7 @@ How to start the frontend
 npx create-react-app prescription-frontend
 cd prescription-frontend
 npm start
+
+
+https://github.com/user-attachments/assets/4205760f-24f4-4c9c-835a-39bea678d4cb
+
